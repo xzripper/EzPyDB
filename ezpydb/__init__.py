@@ -1,4 +1,4 @@
-"""EzPyDB - Easy Python Database. """
+"""EzPyDB - Easy Python DataBase. """
 
 from os.path import exists
 
@@ -66,27 +66,27 @@ class PyDB:
 
     def create(self) -> bool:
         """Create database."""
-        # try:
-        if not exists(self.path) and not self.created:
-            if self.directory is not None:
-                mkdir(self.directory)
+        try:
+            if not exists(self.path) and not self.created:
+                if self.directory is not None:
+                    mkdir(self.directory)
 
-            with open(self.path, 'w') as _: ...
+                with open(self.path, 'w') as _: ...
 
-            if self.logging:
-                with open(self.lpath, 'w') as _: ...
+                if self.logging:
+                    with open(self.lpath, 'w') as _: ...
 
-                write(self.lpath, pydb_log(f'Created database {self.db_name}.'), True)
+                    write(self.lpath, pydb_log(f'Created database {self.db_name}.'), True)
 
-            self.created = True
+                self.created = True
 
-            return True
-        else:
-            self.created = True
+                return True
+            else:
+                self.created = True
 
-            return True
-        # except:
-        #     return False
+                return True
+        except:
+            return False
 
     def load(self) -> bool:
         """Load database."""
