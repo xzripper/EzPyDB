@@ -135,6 +135,8 @@ class PyDB:
         if self.logging:
             write(self.lpath, pydb_log(f'Deleted key "{name}".'), True)
 
+        return True
+
     def set_value(self, name: str, value: Any) -> bool:
         """Set value in database."""
         if not self.created or name not in self.db:
