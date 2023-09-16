@@ -128,18 +128,6 @@ class PyDB:
 
         return True
 
-    def del_value(self, name: str) -> bool:
-        """Delete value in database."""
-        if not self.created or name not in self.db:
-            return False
-
-        self.db.pop(name)
-
-        if self.logging:
-            write(self.lpath, pydb_log(f'Deleted key "{name}".'), True)
-
-        return True
-
     def set_value(self, name: str, value: Any) -> bool:
         """Set value in database."""
         if not self.created or name not in self.db:
@@ -149,6 +137,18 @@ class PyDB:
 
         if self.logging:
             write(self.lpath, pydb_log(f'Updated key "{name}" with value "{value}".'), True)
+
+        return True
+
+    def del_value(self, name: str) -> bool:
+        """Delete value in database."""
+        if not self.created or name not in self.db:
+            return False
+
+        self.db.pop(name)
+
+        if self.logging:
+            write(self.lpath, pydb_log(f'Deleted key "{name}".'), True)
 
         return True
 
