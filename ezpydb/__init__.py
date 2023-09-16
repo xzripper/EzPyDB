@@ -127,7 +127,7 @@ class PyDB:
 
     def del_value(self, name: str) -> bool:
         """Delete value in database."""
-        if not self.created and name not in self.db:
+        if not self.created or name not in self.db:
             return False
 
         self.db.pop(name)
@@ -137,7 +137,7 @@ class PyDB:
 
     def set_value(self, name: str, value: Any) -> bool:
         """Set value in database."""
-        if not self.created and name not in self.db:
+        if not self.created or name not in self.db:
             return False
 
         self.db[name] = value
