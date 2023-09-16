@@ -11,6 +11,8 @@ from datetime import datetime
 from typing import Any, Union
 
 
+PYDB_VERSION = 1.0
+
 EXTENSION_DB = 'pydb'
 EXTENSION_LOGS = 'pydbl'
 
@@ -119,9 +121,19 @@ class PyDB:
         self.db[name] = value
 
         if self.logging:
-            write(self.lpath, pydb_log(f'Registered value "{name}" with initial value "{value}".'), True)
+            write(self.lpath, pydb_log(f'Registered key "{name}" with initial value "{value}".'), True)
 
         return True
+
+    def del_value(self, name: str) -> bool:
+        """Delete value in database."""
+        if not self.created and name not in self.db:
+            return False
+
+        self.db.pop(name)
+
+        if self.logging:
+            write(self.lpath, pydb_log(f'Deleted key "{name}".'), True)
 
     def set_value(self, name: str, value: Any) -> bool:
         """Set value in database."""
@@ -131,7 +143,7 @@ class PyDB:
         self.db[name] = value
 
         if self.logging:
-            write(self.lpath, pydb_log(f'Updated value "{name}" with value "{value}".'), True)
+            write(self.lpath, pydb_log(f'Updated key "{name}" with value "{value}".'), True)
 
         return True
 
@@ -154,3 +166,7 @@ class PyDB:
             write(self.lpath, pydb_log(f'Commit to database.'), True)
 
         return True
+
+    def get_version(self) -> float:
+        """Get database version."""
+        return PYDB_VERSION
