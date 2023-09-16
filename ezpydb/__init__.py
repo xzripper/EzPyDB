@@ -26,16 +26,19 @@ def pydb_log(message: str) -> str:
 
 def write(path: str, content: Union[str, bytes], append: bool=False, newline: bool=True) -> None:
     """Write file."""
-    with open(
-        path,
+    try:
+        with open(
+            path,
 
-        ('w' if not append else 'a') \
-            if isinstance(content, str) else ('wb' if not append else 'ab') \
-                if isinstance(content, bytes) else ('w' if not append else 'a')
-    ) as file:
-        if newline: content += '\n'
+            ('w' if not append else 'a') \
+                if isinstance(content, str) else ('wb' if not append else 'ab') \
+                    if isinstance(content, bytes) else ('w' if not append else 'a')
+        ) as file:
+            if newline: content += '\n'
 
-        file.write(content)
+            file.write(content)
+    except FileNotFoundError:
+        print(pydb_log("Critical Error @FileNotFoundError (Failed to write file)."))
 
 class PyDB:
     created: bool = False
